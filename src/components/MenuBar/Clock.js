@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Clock from 'react-live-clock';
 
 const StyledClock = styled.div`
   position: absolute;
@@ -20,15 +21,10 @@ const StyledClock = styled.div`
   border-left: 1px solid black;
 `;
 
-class Clock extends React.Component {
-  state = {
-    test: '12:30',
-  };
+const Timer = () => (
+  <StyledClock>
+    <Clock format="HH:mm" ticking timezone="Europe/Warsaw" />
+  </StyledClock>
+);
 
-  render() {
-    const { test } = this.state;
-    return <StyledClock>{test}</StyledClock>;
-  }
-}
-
-export default Clock;
+export default Timer;
