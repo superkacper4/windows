@@ -1,9 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import MenuBar from './components/MenuBar/MenuBar';
+import GlobalStyle from './GlobalStyle/GlobalStyle';
 
 const App = () => (
   <div className="App">
+    <GlobalStyle />
+    <MenuBar />
     <header className="App-header">
       <img src={logo} className="App-logo" alt="logo" />
       <p>
