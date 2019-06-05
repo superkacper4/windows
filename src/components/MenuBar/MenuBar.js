@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import MenuItem from './MenuItem';
+import Clock from './Clock';
 import logo from '../../assets/logo2.png';
 
 const StyledMenuBar = styled.div`
@@ -36,6 +37,7 @@ const MenuBar = () => (
     </StyledStartButton>
     <MenuItem>Test</MenuItem>
     <MenuItem>Test</MenuItem>
+    <Clock />
   </StyledMenuBar>
 );
 
