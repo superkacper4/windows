@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import MenuItem from './MenuItem';
+import logo from '../../assets/logo2.png';
 
 const StyledMenuBar = styled.div`
   position: absolute;
@@ -15,12 +16,24 @@ const StyledMenuBar = styled.div`
 `;
 
 const StyledStartButton = styled(MenuItem)`
-  width: 60px;
+  width: 80px;
+  display: flex;
+  /* background-color: black;
+  color: white; */
+  justify-content: space-around;
+`;
+
+const StyledLogo = styled.img`
+  width: 24px;
+  height: 18px;
 `;
 
 const MenuBar = () => (
   <StyledMenuBar>
-    <StyledStartButton>Start</StyledStartButton>
+    <StyledStartButton>
+      <StyledLogo src={logo} />
+      Start
+    </StyledStartButton>
     <MenuItem>Test</MenuItem>
     <MenuItem>Test</MenuItem>
   </StyledMenuBar>
