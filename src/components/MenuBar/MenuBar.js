@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import MenuItem from './MenuItem';
 import Clock from './Clock';
 import StartBar from './StartBar';
+import StartBarItem from './StartBarItem';
 import logo from '../../assets/logo2.png';
 
 const StyledMenuBar = styled.div`
@@ -38,8 +39,12 @@ class MenuBar extends React.Component {
   startBarFn = () => {
     const { scale } = this.state;
     if (scale === 0) this.setState({ scale: 1 });
-    else if (scale === 1) this.setState({ scale: 0 });
+    else if (scale === 1) this.closeStartBar();
     // this.setState(prevState => ({ scale: !prevState }));
+  };
+
+  closeStartBar = () => {
+    this.setState({ scale: 0 });
   };
 
   render() {
@@ -47,7 +52,17 @@ class MenuBar extends React.Component {
 
     return (
       <StyledMenuBar>
-        <StartBar scale={scale} />
+        <StartBar scale={scale}>
+          <StartBarItem>Programs</StartBarItem>
+          <StartBarItem>Programs</StartBarItem>
+          <StartBarItem>Programs</StartBarItem>
+          <StartBarItem>Programs</StartBarItem>
+          <StartBarItem>Programs</StartBarItem>
+          <StartBarItem>Programs</StartBarItem>
+          <StartBarItem>Programs</StartBarItem>
+          <StartBarItem>Programs</StartBarItem>
+          <StartBarItem>Programs</StartBarItem>
+        </StartBar>
         <StyledStartButton onClick={this.startBarFn}>
           <StyledLogo src={logo} />
           Start

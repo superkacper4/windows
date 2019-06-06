@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 const StartBar = styled.div`
   transform: scale(1);
-  width: 400px;
-  height: 500px;
+  width: 200px;
+  height: 200px;
   background-color: #c0c0c0;
   position: absolute;
   bottom: 30px;
