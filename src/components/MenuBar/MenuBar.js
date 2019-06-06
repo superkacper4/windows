@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import MenuItem from './MenuItem';
 import Clock from './Clock';
+import StartBar from './StartBar';
 import logo from '../../assets/logo2.png';
 
 const StyledMenuBar = styled.div`
@@ -29,16 +30,34 @@ const StyledLogo = styled.img`
   height: 18px;
 `;
 
-const MenuBar = () => (
-  <StyledMenuBar>
-    <StyledStartButton>
-      <StyledLogo src={logo} />
-      Start
-    </StyledStartButton>
-    <MenuItem>Test</MenuItem>
-    <MenuItem>Test</MenuItem>
-    <Clock />
-  </StyledMenuBar>
-);
+class MenuBar extends React.Component {
+  state = {
+    scale: 0,
+  };
+
+  startBarFn = () => {
+    const { scale } = this.state;
+    if (scale === 0) this.setState({ scale: 1 });
+    else if (scale === 1) this.setState({ scale: 0 });
+    // this.setState(prevState => ({ scale: !prevState }));
+  };
+
+  render() {
+    const { scale } = this.state;
+
+    return (
+      <StyledMenuBar>
+        <StartBar scale={scale} />
+        <StyledStartButton onClick={this.startBarFn}>
+          <StyledLogo src={logo} />
+          Start
+        </StyledStartButton>
+        <MenuItem>Test</MenuItem>
+        <MenuItem>Test</MenuItem>
+        <Clock />
+      </StyledMenuBar>
+    );
+  }
+}
 
 export default MenuBar;
