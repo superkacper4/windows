@@ -7,6 +7,27 @@ import Icon from './Icon';
 
 import pc from '../../img/komputer.png';
 import bin from '../../img/kosz.png';
+import IE from '../../img/IE.png';
+import paint from '../../img/paint.png';
+
+const Data = [
+  {
+    src: pc,
+    content: 'Komputer',
+  },
+  {
+    src: bin,
+    content: 'Kosz',
+  },
+  {
+    src: paint,
+    content: 'Paint',
+  },
+  {
+    src: IE,
+    content: 'Internet Explorer',
+  },
+];
 
 const StyledDesktop = styled.main`
     height: 100vh;
@@ -18,19 +39,8 @@ const StyledDesktop = styled.main`
     padding: 5px
 `;
 
-const images = [
-  {
-    src: pc,
-    content: 'Komputer',
-  },
-  {
-    src: bin,
-    content: 'Kosz',
-  },
-];
-
 const Desktop = () => {
-  const Icons = images.map(Icone => <Icon src={Icone.src} content={Icone.content} />);
+  const Icons = Data.map(Icone => <Icon src={Icone.src} content={Icone.content} />);
 
   return <StyledDesktop>{Icons}</StyledDesktop>;
 };

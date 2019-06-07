@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+/* zrobić mousedown na elementach żeby przenosić */
+
 const StyledIcon = styled.button`
     height: 60px
     width: 72px
@@ -18,11 +20,13 @@ const StyledImg = styled.img`
 `;
 
 const StyledTitle = styled.p`
-    height: 28px;
-    line-height: 28px
-    color: white
-
+  height: 28px;
+  color: white;
 `;
+
+// const moveIcon = () =>{
+
+// }
 
 const Icon = ({ src, content }) => {
   return (
