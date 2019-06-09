@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import AppContext from '../../context';
 import MenuItem from './MenuItem';
 import Clock from './Clock';
 import StartBar from './StartBar';
@@ -31,39 +32,54 @@ const StyledLogo = styled.img`
   height: 18px;
 `;
 
-class MenuBar extends React.Component {
-  state = {
-    scale: 0,
-  };
+const StyledStartBarItem = styled(StartBarItem)`
+  border-top: 1px solid #dfdfdf;
+  border-bottom: 1px solid #dfdfdf;
+`;
 
-  startBarFn = () => {
-    const { scale } = this.state;
-    if (scale === 0) this.setState({ scale: 1 });
-    else if (scale === 1) this.closeStartBar();
-    // this.setState(prevState => ({ scale: !prevState }));
-  };
+const StyledStartBar = styled(StartBar)`
+  bottom: 160px;
+  left: 153px;
+  height: 400px;
+  transform: scale(${props => props.scale});
+`;
 
-  closeStartBar = () => {
-    this.setState({ scale: 0 });
-  };
+// class MenuBar extends React.Component {
 
-  render() {
-    const { scale } = this.state;
+//   state = {
+//     scale: 0,
+//     scale2ndBar: 0,
+//   };
 
-    return (
+//   render() {
+//     const { scale, scale2ndBar } = this.state;
+
+//     return (
+
+//     );
+//   }
+// }
+
+const MenuBar = () => (
+  <AppContext.Consumer>
+    {context => (
       <StyledMenuBar>
-        <StartBar scale={scale}>
+        <StartBar scale={context.state.scale}>
+          <StartBarItem>Programs</StartBarItem>
+          <StartBarItem>Programs</StartBarItem>
+          <StartBarItem more onClick={context.startBarFn2}>
+            Programs
+          </StartBarItem>
           <StartBarItem>Programs</StartBarItem>
           <StartBarItem>Programs</StartBarItem>
           <StartBarItem>Programs</StartBarItem>
-          <StartBarItem>Programs</StartBarItem>
-          <StartBarItem>Programs</StartBarItem>
-          <StartBarItem>Programs</StartBarItem>
-          <StartBarItem>Programs</StartBarItem>
+          <StyledStartBarItem>Programs</StyledStartBarItem>
           <StartBarItem>Programs</StartBarItem>
           <StartBarItem>Programs</StartBarItem>
         </StartBar>
-        <StyledStartButton onClick={this.startBarFn}>
+        <StyledStartBar scale={context.state.scale2ndBar} />
+        {/* <StyledStartButton onClick={() => this.startBarFn(this.props.scale)}> */}
+        <StyledStartButton onClick={context.startBarFn}>
           <StyledLogo src={logo} />
           Start
         </StyledStartButton>
@@ -71,8 +87,8 @@ class MenuBar extends React.Component {
         <MenuItem>Test</MenuItem>
         <Clock />
       </StyledMenuBar>
-    );
-  }
-}
+    )}
+  </AppContext.Consumer>
+);
 
 export default MenuBar;

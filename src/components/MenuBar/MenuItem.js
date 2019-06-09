@@ -13,6 +13,7 @@ const MenuItem = styled.button`
   outline: none;
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   &:active {
     border: 0;
