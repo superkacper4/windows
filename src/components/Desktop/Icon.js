@@ -12,14 +12,13 @@ const StyledIcon = styled.button`
     background-color: transparent;
     border: none;
     position: absolute;
-    left: ${({ mouseX, isChanged }) => isChanged && `${mouseX - 36}px`};
-    top: ${({ top, mouseY, isChanged }) => (isChanged ? `${mouseY - 30}px` : `${top * 60 + 5}px`)};
+    left: ${({ statX, isChanged }) => isChanged && `${statX}px`};
+    top: ${({ top, statY, isChanged }) => (isChanged ? `${statY}px` : `${top * 60 + 5}px`)};
     ${({ active, mouseX, mouseY, move, posX, posY }) =>
       active &&
       `transform: translateX(${move ? mouseX - posX : 0}px) translateY(${
         move ? mouseY - posY : 0
       }px)`}
-
 `;
 
 // ${({posX,posY,isChanged}) => isChanged && `transfrom: translateX(${posX-16}px) translateY(${posY-10}px)`}
@@ -28,6 +27,16 @@ const StyledImg = styled.img`
   width: 32px;
   height: 32px;
   background-blend-mode: blue;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    background-color: black;
+  }
 `;
 
 const StyledTitle = styled.p`
@@ -42,9 +51,13 @@ class Icon extends React.Component {
     mouseY: 0,
     posX: 0,
     posY: 0,
+    statX: 0,
+    statY: 0,
     isChanged: false,
     move: false,
   };
+
+  ref = React.createRef();
 
   handleMove = e => {
     this.setState({
@@ -62,9 +75,10 @@ class Icon extends React.Component {
     });
   };
 
-  handleUp = () => {
-    // const {mouseX,mouseY} = this.state
+  handleUp = e => {
     this.setState({
+      statX: e.clientX - 36,
+      statY: e.clientY - 30,
       active: false,
       move: false,
       isChanged: true,
@@ -75,8 +89,8 @@ class Icon extends React.Component {
 
   render() {
     const { src, content, top } = this.props;
-    const { handleDown, handleUp, handleMove } = this;
-    const { active, mouseX, mouseY, posX, posY, move, isChanged } = this.state;
+    const { handleDown, handleUp, handleMove, ref } = this;
+    const { active, mouseX, mouseY, posX, posY, move, isChanged, statX, statY } = this.state;
     return (
       <StyledIcon
         top={top}
@@ -85,11 +99,15 @@ class Icon extends React.Component {
         mouseY={mouseY}
         posX={posX}
         posY={posY}
+        statX={statX}
+        statY={statY}
         move={move}
         isChanged={isChanged}
         onMouseDown={handleDown}
         onMouseUp={handleUp}
         onMouseMove={active ? handleMove : null}
+        ref={ref}
+        innerRef={ref}
       >
         <StyledImg src={src} />
         <StyledTitle>{content}</StyledTitle>
