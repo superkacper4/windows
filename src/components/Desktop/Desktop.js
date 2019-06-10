@@ -12,18 +12,22 @@ import paint from '../../img/paint.png';
 
 const Data = [
   {
+    key: 0,
     src: pc,
     content: 'Komputer',
   },
   {
+    key: 1,
     src: bin,
     content: 'Kosz',
   },
   {
+    key: 2,
     src: paint,
     content: 'Paint',
   },
   {
+    key: 3,
     src: IE,
     content: 'Internet Explorer',
   },
@@ -40,7 +44,9 @@ const StyledDesktop = styled.main`
 `;
 
 const Desktop = () => {
-  const Icons = Data.map(Icone => <Icon src={Icone.src} content={Icone.content} />);
+  const Icons = Data.map(Icone => (
+    <Icon key={Icone.key} top={Icone.key} src={Icone.src} content={Icone.content} />
+  ));
 
   return <StyledDesktop>{Icons}</StyledDesktop>;
 };
