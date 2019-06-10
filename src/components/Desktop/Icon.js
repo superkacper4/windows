@@ -24,8 +24,6 @@ const StyledIcon = styled.button`
       }px)`}
 `;
 
-// ${({posX,posY,isChanged}) => isChanged && `transfrom: translateX(${posX-16}px) translateY(${posY-10}px)`}
-
 const StyledImg = styled.img`
   width: 32px;
   height: 32px;
@@ -78,15 +76,15 @@ class Icon extends React.Component {
     });
   };
 
-  handleUp = e => {
+  handleUp = () => {
+    const { ref } = this;
+    const { mouseX, posX, mouseY, posY } = this.state;
     this.setState({
-      statX: e.clientX - 36,
-      statY: e.clientY - 30,
+      statX: ref.current.offsetLeft + mouseX - posX,
+      statY: ref.current.offsetTop + mouseY - posY,
       active: false,
       move: false,
       isChanged: true,
-      // posX: mouseX,
-      // posY: mouseY
     });
   };
 
@@ -110,7 +108,6 @@ class Icon extends React.Component {
         onMouseUp={handleUp}
         onMouseMove={active ? handleMove : null}
         ref={ref}
-        innerRef={ref}
       >
         <StyledBlocker />
         <StyledImg src={src} />
