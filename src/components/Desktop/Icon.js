@@ -11,6 +11,9 @@ const StyledIcon = styled.button`
     align-items: center
     background-color: transparent;
     border: none;
+    &:focus{
+      outline: 0;
+    }
     position: absolute;
     left: ${({ statX, isChanged }) => isChanged && `${statX}px`};
     top: ${({ top, statY, isChanged }) => (isChanged ? `${statY}px` : `${top * 60 + 5}px`)};
@@ -26,22 +29,22 @@ const StyledIcon = styled.button`
 const StyledImg = styled.img`
   width: 32px;
   height: 32px;
-  background-blend-mode: blue;
   position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 32px;
-    height: 32px;
-    background-color: black;
-  }
 `;
 
 const StyledTitle = styled.p`
-  height: 28px;
   color: white;
+  ${({ active }) =>
+    active &&
+    `background-color: blue; border: 1px solid darkblue; box-shadow: 4px 2px 5px -1px rgba(0,0,0,0.75);`}
+`;
+
+const StyledBlocker = styled.span`
+  height: 32px;
+  width: 32px;
+  position: absolute;
+  z-index: 1;
+  left: 20px;
 `;
 
 class Icon extends React.Component {
@@ -109,8 +112,9 @@ class Icon extends React.Component {
         ref={ref}
         innerRef={ref}
       >
+        <StyledBlocker />
         <StyledImg src={src} />
-        <StyledTitle>{content}</StyledTitle>
+        <StyledTitle active={active}>{content}</StyledTitle>
       </StyledIcon>
     );
   }
