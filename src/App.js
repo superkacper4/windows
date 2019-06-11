@@ -2,11 +2,17 @@ import React from 'react';
 import GlobalStyle from './GlobalStyle/GlobalStyle';
 import Desktop from './components/Desktop/Desktop';
 
-const App = () => (
-  <div className="App">
-    <GlobalStyle />
-    <Desktop />
-  </div>
-);
+class App extends React.Component {
+  state = {};
+
+  render() {
+    return (
+      <div className="App">
+        <GlobalStyle />
+        <Desktop />
+      </div>
+    );
+  }
+}
 
 export default App;

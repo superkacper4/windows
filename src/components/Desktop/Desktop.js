@@ -43,12 +43,21 @@ const StyledDesktop = styled.main`
     padding: 5px
 `;
 
+const StyledSelect = styled.div`
+  transform-origin: right bottom;
+`;
+
 const Desktop = () => {
   const Icons = Data.map(Icone => (
     <Icon key={Icone.key} top={Icone.key} src={Icone.src} content={Icone.content} />
   ));
 
-  return <StyledDesktop>{Icons}</StyledDesktop>;
+  return (
+    <>
+      <StyledDesktop>{Icons}</StyledDesktop>
+      <StyledSelect />
+    </>
+  );
 };
 
 export default Desktop;

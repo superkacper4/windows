@@ -21,7 +21,8 @@ const StyledIcon = styled.button`
       active &&
       `transform: translateX(${move ? mouseX - posX : 0}px) translateY(${
         move ? mouseY - posY : 0
-      }px)`}
+      }px); cursor: grabbing;`}
+
 `;
 
 const StyledImg = styled.img`
