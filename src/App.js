@@ -1,13 +1,10 @@
 import React from 'react';
+ menu-bar
 import AppContext from './context';
 import logo from './logo.svg';
 import './App.css';
 import MenuBar from './components/MenuBar/MenuBar';
 import GlobalStyle from './GlobalStyle/GlobalStyle';
-
-// const App = () => (
-
-// );
 
 class App extends React.Component {
   state = {
@@ -52,25 +49,18 @@ class App extends React.Component {
 
   startBarFn = () => {
     this.deactivateMenuBarIcon();
-    // if (scale === 0) scale = 1;
-    // else if (scale === 1) scale = 0;
+
     const { scale } = this.state;
-    // console.log(scale);
+
     if (scale === 0) this.setState({ scale: 1 });
     else if (scale === 1) this.setState({ scale: 0, scale2ndBar: 0 });
-    // this.setState(prevState => ({ scale: !prevState }));
+
   };
 
   startBarFn2 = () => {
-    //   // if (scale === 0) scale = 1;
-    //   // else if (scale === 1) scale = 0;
     const { scale2ndBar } = this.state;
     if (scale2ndBar === 0) this.setState({ scale2ndBar: 1 });
     else if (scale2ndBar === 1) this.setState({ scale2ndBar: 0 });
-    //   // this.setState(prevState => ({ scale: !prevState }));
-    // };
-    // test = scale => {
-    //   console.log(scale);
   };
 
   closeBarFn = () => {
@@ -99,7 +89,6 @@ class App extends React.Component {
       }));
     }
 
-    // activePrograms.push(Data[id]);
   };
 
   render() {
@@ -145,6 +134,19 @@ class App extends React.Component {
           </header>
         </div>
       </AppContext.Provider>
+import GlobalStyle from './GlobalStyle/GlobalStyle';
+import Desktop from './components/Desktop/Desktop';
+
+class App extends React.Component {
+  state = {};
+
+  render() {
+    return (
+      <div className="App">
+        <GlobalStyle />
+        <Desktop />
+      </div>
+master
     );
   }
 }
