@@ -12,6 +12,8 @@
       {
         "extensions": [".js", ".jsx"]
       }
-    ]
-  }
+    ],
+    "strict": 0
+  },
+  "parser": "babel-eslint"
 }
