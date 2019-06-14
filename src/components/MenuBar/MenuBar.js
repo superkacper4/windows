@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import AppContext from '../../context';
 import MenuItem from './MenuItem';
 import Clock from './Clock';
@@ -46,13 +47,7 @@ const StyledStartBar = styled(StartBar)`
 
 // class MenuBar extends React.Component {
 
-//   state = {
-//     scale: 0,
-//     scale2ndBar: 0,
-//   };
-
 //   render() {
-//     const { scale, scale2ndBar } = this.state;
 
 //     return (
 
@@ -60,35 +55,68 @@ const StyledStartBar = styled(StartBar)`
 //   }
 // }
 
-const MenuBar = () => (
-  <AppContext.Consumer>
-    {context => (
-      <StyledMenuBar>
-        <StartBar scale={context.state.scale}>
-          <StartBarItem>Programs</StartBarItem>
-          <StartBarItem>Programs</StartBarItem>
-          <StartBarItem more onClick={context.startBarFn2}>
-            Programs
-          </StartBarItem>
-          <StartBarItem>Programs</StartBarItem>
-          <StartBarItem>Programs</StartBarItem>
-          <StartBarItem>Programs</StartBarItem>
-          <StyledStartBarItem>Programs</StyledStartBarItem>
-          <StartBarItem>Programs</StartBarItem>
-          <StartBarItem>Programs</StartBarItem>
-        </StartBar>
-        <StyledStartBar scale={context.state.scale2ndBar} />
-        {/* <StyledStartButton onClick={() => this.startBarFn(this.props.scale)}> */}
-        <StyledStartButton onClick={context.startBarFn}>
-          <StyledLogo src={logo} />
-          Start
-        </StyledStartButton>
-        <MenuItem>Test</MenuItem>
-        <MenuItem>Test</MenuItem>
-        <Clock />
-      </StyledMenuBar>
-    )}
-  </AppContext.Consumer>
-);
+const MenuBar = props => {
+  const { data } = props;
+
+  const openPrograms = data.map(program => {
+    return (
+      <MenuItem key={program.key} title={program.content} active={program.active}>
+        {program.content.length <= 8 ? program.content : `${program.content.substring(0, 8)}..`}
+      </MenuItem>
+    );
+  });
+
+  return (
+    <AppContext.Consumer>
+      {context => (
+        <StyledMenuBar>
+          <StartBar scale={context.state.scale}>
+            <StartBarItem>Programs</StartBarItem>
+            <StartBarItem>Programs</StartBarItem>
+            <StartBarItem
+              more
+              onMouseOver={context.startBarFn2}
+              onFocus={context.startBarFn2}
+              onMouseLeave={context.closeMoreFn}
+            >
+              Programs
+            </StartBarItem>
+            <StartBarItem>Programs</StartBarItem>
+            <StartBarItem>Programs</StartBarItem>
+            <StartBarItem>Programs</StartBarItem>
+            <StyledStartBarItem>Programs</StyledStartBarItem>
+            <StartBarItem>Programs</StartBarItem>
+            <StartBarItem>Programs</StartBarItem>
+          </StartBar>
+          <StyledStartBar
+            scale={context.state.scale2ndBar}
+            onMouseOver={context.startBarFn2}
+            onFocus={context.startBarFn2}
+          />
+          {/* <StyledStartButton onClick={() => this.startBarFn(this.props.scale)}> */}
+          <StyledStartButton onClick={context.startBarFn}>
+            <StyledLogo src={logo} />
+            Start
+          </StyledStartButton>
+          {openPrograms}
+          <Clock />
+        </StyledMenuBar>
+      )}
+    </AppContext.Consumer>
+  );
+};
+
+MenuBar.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.number.isRequired,
+      content: PropTypes.string.isRequired,
+    }),
+  ),
+};
+
+MenuBar.defaultProps = {
+  data: '',
+};
 
 export default MenuBar;

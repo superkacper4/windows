@@ -6,10 +6,10 @@ const MenuItem = styled.button`
   margin-left: 2px;
   font-size: 1.75rem;
   background-color: #c0c0c0;
-  border-bottom: 2px solid black;
-  border-right: 2px solid black;
-  border-top: 2px solid #dfdfdf;
-  border-left: 2px solid #dfdfdf;
+  border-bottom: 2px solid ${props => (props.active ? '#dfdfdf' : ' black')};
+  border-right: 2px solid ${props => (props.active ? '#dfdfdf' : ' black')};
+  border-top: 2px solid ${props => (props.active ? ' black' : '#dfdfdf')};
+  border-left: 2px solid ${props => (props.active ? ' black' : '#dfdfdf')};
   outline: none;
   display: flex;
   align-items: center;
