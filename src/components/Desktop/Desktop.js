@@ -19,14 +19,35 @@ const StyledSelect = styled.div`
 `;
 
 const Desktop = props => {
-  const { data, clickFn } = props;
+  const { data, clickFn, openProgramFn } = props;
   const Icons = data.map(Icone => (
-    <Icon key={Icone.key} top={Icone.key} src={Icone.src} content={Icone.content} />
+    <Icon
+      key={Icone.key}
+      top={Icone.key}
+      src={Icone.src}
+      content={Icone.content}
+      onClick={() => openProgramFn(Icone.key)}
+    />
   ));
 
   return (
     <>
-      <StyledDesktop onClick={clickFn}>{Icons}</StyledDesktop>
+      <StyledDesktop onClick={clickFn}>
+        {Icons}
+
+        <button onClick={() => openProgramFn(data[0].key)} type="submit">
+          123
+        </button>
+        <button onClick={() => openProgramFn(data[1].key)} type="submit">
+          123
+        </button>
+        <button onClick={() => openProgramFn(data[2].key)} type="submit">
+          123
+        </button>
+        <button onClick={() => openProgramFn(data[3].key)} type="submit">
+          123
+        </button>
+      </StyledDesktop>
       <StyledSelect />
     </>
   );
@@ -40,6 +61,7 @@ Desktop.propTypes = {
     }),
   ),
   clickFn: PropTypes.func.isRequired,
+  openProgramFn: PropTypes.func.isRequired,
 };
 
 Desktop.defaultProps = {
