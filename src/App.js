@@ -1,10 +1,8 @@
 import React from 'react';
- menu-bar
 import AppContext from './context';
-import logo from './logo.svg';
-import './App.css';
 import MenuBar from './components/MenuBar/MenuBar';
 import GlobalStyle from './GlobalStyle/GlobalStyle';
+import Desktop from './components/Desktop/Desktop';
 
 class App extends React.Component {
   state = {
@@ -54,7 +52,6 @@ class App extends React.Component {
 
     if (scale === 0) this.setState({ scale: 1 });
     else if (scale === 1) this.setState({ scale: 0, scale2ndBar: 0 });
-
   };
 
   startBarFn2 = () => {
@@ -88,11 +85,10 @@ class App extends React.Component {
         activePrograms: [...prevState.activePrograms, Data[id]],
       }));
     }
-
   };
 
   render() {
-    const { activePrograms, Data } = this.state;
+    const { activePrograms } = this.state;
     return (
       <AppContext.Provider
         value={{
@@ -105,48 +101,10 @@ class App extends React.Component {
         <div className="App">
           <GlobalStyle />
           <MenuBar data={activePrograms} />
-          <header className="App-header">
-            <button onClick={() => this.openProgram(Data[3].key)} type="submit">
-              Internet
-            </button>
-            <button onClick={() => this.openProgram(Data[0].key)} type="submit">
-              Komputer
-            </button>
-            <button onClick={() => this.openProgram(Data[1].key)} type="submit">
-              Kosz
-            </button>
-            <button onClick={() => this.openProgram(Data[2].key)} type="submit">
-              Paint
-            </button>
-            <button type="submit">delete</button>
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </header>
+          <GlobalStyle />
+          <Desktop />
         </div>
       </AppContext.Provider>
-import GlobalStyle from './GlobalStyle/GlobalStyle';
-import Desktop from './components/Desktop/Desktop';
-
-class App extends React.Component {
-  state = {};
-
-  render() {
-    return (
-      <div className="App">
-        <GlobalStyle />
-        <Desktop />
-      </div>
-master
     );
   }
 }

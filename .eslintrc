@@ -14,12 +14,6 @@
         "extensions": [".js", ".jsx"]
       }
     ],
-menu-bar
     "no-param-reassign": 0
-  }
-
-    "strict": 0
   },
-  "parser": "babel-eslint"
-master
 }
