@@ -16,8 +16,7 @@ const StyledIcon = styled.button`
     }
     position: absolute;
     left: ${({ statX, isClicked, isChanged }) => isClicked && isChanged && `${statX}px`};
-    top: ${({ top, statY, isClicked, isChanged }) =>
-      isClicked && isChanged ? `${statY}px` : `${top * 60 + 5}px`};
+    top: ${({ statY }) => `${statY}px`};
     ${({ active, mouseX, mouseY, move, posX, posY }) =>
       active &&
       `transform: translateX(${move ? mouseX - posX : 0}px) translateY(${
@@ -63,6 +62,14 @@ class Icon extends React.Component {
 
   ref = React.createRef();
 
+  componentDidMount() {
+    const { top } = this.props;
+    this.setState({
+      statX: 0,
+      statY: top * 60 + 5,
+    });
+  }
+
   handleMove = e => {
     this.setState({
       mouseX: e.clientX,
@@ -82,10 +89,16 @@ class Icon extends React.Component {
 
   handleUp = () => {
     const { ref } = this;
-    const { mouseX, posX, mouseY, posY } = this.state;
+    const { mouseX, posX, mouseY, posY, isChanged } = this.state;
+
+    if (isChanged) {
+      this.setState({
+        statX: ref.current.offsetLeft + mouseX - posX,
+        statY: ref.current.offsetTop + mouseY - posY,
+      });
+    }
+
     this.setState({
-      statX: ref.current.offsetLeft + mouseX - posX,
-      statY: ref.current.offsetTop + mouseY - posY,
       active: false,
       move: false,
       isClicked: true,
