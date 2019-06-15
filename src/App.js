@@ -1,8 +1,13 @@
 import React from 'react';
 import AppContext from './context';
-import MenuBar from './components/MenuBar/MenuBar';
+import MenuBar from './components/MenuBar/MenuBar/MenuBar';
 import GlobalStyle from './GlobalStyle/GlobalStyle';
 import Desktop from './components/Desktop/Desktop';
+
+import pc from './assets/img/komputer.png';
+import bin from './assets/img/kosz.png';
+import IE from './assets/img/IE.png';
+import paint from './assets/img/paint.png';
 
 class App extends React.Component {
   state = {
@@ -12,26 +17,25 @@ class App extends React.Component {
       {
         key: 0,
         content: 'Komputer',
+        src: pc,
         active: 1,
       },
       {
         key: 1,
         content: 'Kosz',
+        src: bin,
         active: 1,
       },
       {
         key: 2,
         content: 'Paint',
+        src: paint,
         active: 1,
       },
       {
         key: 3,
         content: 'Internet Explorer',
-        active: 1,
-      },
-      {
-        key: 4,
-        content: 'SuperKacper4',
+        src: IE,
         active: 1,
       },
     ],
@@ -88,7 +92,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { activePrograms } = this.state;
+    const { activePrograms, Data } = this.state;
     return (
       <AppContext.Provider
         value={{
@@ -102,7 +106,7 @@ class App extends React.Component {
           <GlobalStyle />
           <MenuBar data={activePrograms} />
           <GlobalStyle />
-          <Desktop />
+          <Desktop clickFn={this.closeBarFn} data={Data} openProgramFn={this.openProgram} />
         </div>
       </AppContext.Provider>
     );

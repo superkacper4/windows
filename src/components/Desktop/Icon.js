@@ -93,7 +93,7 @@ class Icon extends React.Component {
   };
 
   render() {
-    const { src, content, top } = this.props;
+    const { src, content, top, onClick } = this.props;
     const { handleDown, handleUp, handleMove, ref } = this;
     const {
       active,
@@ -124,6 +124,7 @@ class Icon extends React.Component {
         onMouseUp={handleUp}
         onMouseMove={active ? handleMove : null}
         ref={ref}
+        onDoubleClick={onClick}
       >
         <StyledBlocker />
         <StyledImg src={src} />
@@ -137,6 +138,7 @@ Icon.propTypes = {
   top: PropTypes.number.isRequired,
   src: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Icon;
