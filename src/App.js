@@ -1,6 +1,6 @@
 import React from 'react';
 import AppContext from './context';
-import MenuBar from './components/MenuBar/MenuBar';
+import MenuBar from './components/MenuBar/MenuBar/MenuBar';
 import GlobalStyle from './GlobalStyle/GlobalStyle';
 import Desktop from './components/Desktop/Desktop';
 
@@ -29,13 +29,13 @@ class App extends React.Component {
       {
         key: 2,
         content: 'Paint',
-        src: IE,
+        src: paint,
         active: 1,
       },
       {
         key: 3,
         content: 'Internet Explorer',
-        src: paint,
+        src: IE,
         active: 1,
       },
     ],

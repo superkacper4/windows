@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import AppContext from '../../context';
+import AppContext from '../../../context';
 import MenuItem from './MenuItem';
-import Clock from './Clock';
-import StartBar from './StartBar';
-import StartBarItem from './StartBarItem';
-import logo from '../../assets/img/logo2.png';
+import Clock from '../Clock/Clock';
+import StartBar from '../StartBar/StartBar';
+import StartBarItem from '../StartBar/StartBarItem';
+import logo from '../../../assets/img/logo2.png';
 
 const StyledMenuBar = styled.div`
   position: absolute;
@@ -44,16 +44,6 @@ const StyledStartBar = styled(StartBar)`
   height: 400px;
   transform: scale(${props => props.scale});
 `;
-
-// class MenuBar extends React.Component {
-
-//   render() {
-
-//     return (
-
-//     );
-//   }
-// }
 
 const MenuBar = props => {
   const { data } = props;
