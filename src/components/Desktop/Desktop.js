@@ -19,9 +19,15 @@ const StyledSelect = styled.div`
 `;
 
 const Desktop = props => {
-  const { data, clickFn } = props;
+  const { data, clickFn, openProgramFn } = props;
   const Icons = data.map(Icone => (
-    <Icon key={Icone.key} top={Icone.key} src={Icone.src} content={Icone.content} />
+    <Icon
+      key={Icone.key}
+      top={Icone.key}
+      src={Icone.src}
+      content={Icone.content}
+      openProgramFn={() => openProgramFn(Icone.key)}
+    />
   ));
 
   return (
@@ -40,6 +46,7 @@ Desktop.propTypes = {
     }),
   ),
   clickFn: PropTypes.func.isRequired,
+  openProgramFn: PropTypes.func.isRequired,
 };
 
 Desktop.defaultProps = {

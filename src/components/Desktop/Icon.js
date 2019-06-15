@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import AppContext from '../../context';
 
 /* zrobić mousedown na elementach żeby przenosić */
 const StyledIcon = styled.button`
@@ -90,35 +89,31 @@ class Icon extends React.Component {
   };
 
   render() {
-    const { src, content, top } = this.props;
+    const { src, content, top, openProgramFn } = this.props;
     const { handleDown, handleUp, handleMove, ref } = this;
     const { active, mouseX, mouseY, posX, posY, move, isChanged, statX, statY } = this.state;
     return (
-      <AppContext.Consumer>
-        {context => (
-          <StyledIcon
-            top={top}
-            active={active}
-            mouseX={mouseX}
-            mouseY={mouseY}
-            posX={posX}
-            posY={posY}
-            statX={statX}
-            statY={statY}
-            move={move}
-            isChanged={isChanged}
-            onMouseDown={handleDown}
-            onMouseUp={handleUp}
-            onMouseMove={active ? handleMove : null}
-            ref={ref}
-            onClick={context.openProgram}
-          >
-            <StyledBlocker />
-            <StyledImg src={src} />
-            <StyledTitle active={active}>{content}</StyledTitle>
-          </StyledIcon>
-        )}
-      </AppContext.Consumer>
+      <StyledIcon
+        top={top}
+        active={active}
+        mouseX={mouseX}
+        mouseY={mouseY}
+        posX={posX}
+        posY={posY}
+        statX={statX}
+        statY={statY}
+        move={move}
+        isChanged={isChanged}
+        onMouseDown={handleDown}
+        onMouseUp={handleUp}
+        onMouseMove={active ? handleMove : null}
+        ref={ref}
+        onClick={openProgramFn}
+      >
+        <StyledBlocker />
+        <StyledImg src={src} />
+        <StyledTitle active={active}>{content}</StyledTitle>
+      </StyledIcon>
     );
   }
 }
@@ -127,6 +122,7 @@ Icon.propTypes = {
   top: PropTypes.number.isRequired,
   src: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
+  openProgramFn: PropTypes.func.isRequired,
 };
 
 export default Icon;
