@@ -1,63 +1,49 @@
 import React from 'react';
 import styled from 'styled-components';
-import Wallpaper from '../../img/wallpaper.jpg';
+import PropTypes from 'prop-types';
+import Wallpaper from '../../assets/img/wallpaper.jpg';
 import Icon from './Icon';
 
-/* imgs */
-
-import pc from '../../img/komputer.png';
-import bin from '../../img/kosz.png';
-import IE from '../../img/IE.png';
-import paint from '../../img/paint.png';
-
-const Data = [
-  {
-    key: 0,
-    src: pc,
-    content: 'Komputer',
-  },
-  {
-    key: 1,
-    src: bin,
-    content: 'Kosz',
-  },
-  {
-    key: 2,
-    src: paint,
-    content: 'Paint',
-  },
-  {
-    key: 3,
-    src: IE,
-    content: 'Internet Explorer',
-  },
-];
-
 const StyledDesktop = styled.main`
-    height: 100vh;
-    width: 100%
-    background-image: url(${Wallpaper});
-    background-repeat: no-repeat;
-    background-size: cover
-    background-position: center;
-    padding: 5px
+  height: 100vh;
+  width: 100%;
+  background-image: url(${Wallpaper});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 5px;
 `;
 
 const StyledSelect = styled.div`
   transform-origin: right bottom;
 `;
 
-const Desktop = () => {
-  const Icons = Data.map(Icone => (
+const Desktop = props => {
+  const { data, clickFn } = props;
+  const Icons = data.map(Icone => (
     <Icon key={Icone.key} top={Icone.key} src={Icone.src} content={Icone.content} />
   ));
 
   return (
     <>
-      <StyledDesktop>{Icons}</StyledDesktop>
+      <StyledDesktop onClick={clickFn}>{Icons}</StyledDesktop>
       <StyledSelect />
     </>
   );
+};
+
+Desktop.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.number.isRequired,
+      content: PropTypes.string.isRequired,
+    }),
+  ),
+  clickFn: PropTypes.func.isRequired,
+};
+
+Desktop.defaultProps = {
+  data: '',
 };
 
 export default Desktop;

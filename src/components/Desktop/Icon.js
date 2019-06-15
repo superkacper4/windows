@@ -4,25 +4,24 @@ import PropTypes from 'prop-types';
 
 /* zrobić mousedown na elementach żeby przenosić */
 const StyledIcon = styled.button`
-    height: 60px
-    width: 72px
-    display: flex
-    flex-direction: column
-    align-items: center
-    background-color: transparent;
-    border: none;
-    &:focus{
-      outline: 0;
-    }
-    position: absolute;
-    left: ${({ statX, isChanged }) => isChanged && `${statX}px`};
-    top: ${({ top, statY, isChanged }) => (isChanged ? `${statY}px` : `${top * 60 + 5}px`)};
-    ${({ active, mouseX, mouseY, move, posX, posY }) =>
-      active &&
-      `transform: translateX(${move ? mouseX - posX : 0}px) translateY(${
-        move ? mouseY - posY : 0
-      }px); cursor: grabbing;`}
-
+  height: 60px;
+  width: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  &:focus {
+    outline: 0;
+  }
+  position: absolute;
+  left: ${({ statX, isChanged }) => isChanged && `${statX}px`};
+  top: ${({ top, statY, isChanged }) => (isChanged ? `${statY}px` : `${top * 60 + 5}px`)};
+  ${({ active, mouseX, mouseY, move, posX, posY }) =>
+    active &&
+    `transform: translateX(${move ? mouseX - posX : 0}px) translateY(${
+      move ? mouseY - posY : 0
+    }px); cursor: grabbing;`}
 `;
 
 const StyledImg = styled.img`

@@ -6,7 +6,7 @@ import MenuItem from './MenuItem';
 import Clock from './Clock';
 import StartBar from './StartBar';
 import StartBarItem from './StartBarItem';
-import logo from '../../assets/logo2.png';
+import logo from '../../assets/img/logo2.png';
 
 const StyledMenuBar = styled.div`
   position: absolute;
