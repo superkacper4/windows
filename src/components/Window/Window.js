@@ -42,14 +42,15 @@ const StyledH2 = styled.h2`
   color: white;
 `;
 
-const StyledNavItem = styled.div`
+const StyledNavItem = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 20px;
   width: 20px;
-  font-size: 2.2rem;
+  font-size: 2rem;
   background-color: #c0c0c0;
+  padding: 0;
   margin: 1px;
   border-bottom: 2px solid black;
   border-right: 2px solid black;
@@ -65,7 +66,7 @@ const StyledContent = styled.div`
 `;
 
 const Window = props => {
-  const { programName, key, imgSrc } = props;
+  const { programName, key, imgSrc, closeProgramFn } = props;
   return (
     <>
       <StyledWindow key={key}>
@@ -77,7 +78,7 @@ const Window = props => {
           <StyledFlexBoxWrapper>
             <StyledNavItem>_</StyledNavItem>
             <StyledNavItem>O</StyledNavItem>
-            <StyledNavItem>X</StyledNavItem>
+            <StyledNavItem onClick={closeProgramFn}>X</StyledNavItem>
           </StyledFlexBoxWrapper>
         </StyledTitle>
         <StyledContent>superkacper4</StyledContent>
@@ -90,6 +91,7 @@ Window.propTypes = {
   key: PropTypes.number.isRequired,
   programName: PropTypes.string,
   imgSrc: PropTypes.string,
+  closeProgramFn: PropTypes.func.isRequired,
 };
 
 Window.defaultProps = {

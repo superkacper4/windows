@@ -91,6 +91,17 @@ class App extends React.Component {
     }
   };
 
+  closeProgram = key => {
+    const { activePrograms } = this.state;
+    const activeProgramsArray = [...activePrograms];
+    const index = activeProgramsArray.findIndex(program => program.key === key);
+    activeProgramsArray.splice(index, 1);
+
+    this.setState({
+      activePrograms: activeProgramsArray,
+    });
+  };
+
   render() {
     const { activePrograms, Data } = this.state;
     return (
@@ -110,6 +121,7 @@ class App extends React.Component {
             clickFn={this.closeBarFn}
             data={Data}
             openProgramFn={this.openProgram}
+            closeProgramFn={this.closeProgram}
             activePrograms={activePrograms}
           />
         </div>

@@ -20,7 +20,7 @@ const StyledSelect = styled.div`
 `;
 
 const Desktop = props => {
-  const { data, clickFn, openProgramFn, activePrograms } = props;
+  const { data, clickFn, openProgramFn, closeProgramFn, activePrograms } = props;
   const Icons = data.map(Icone => (
     <Icon
       key={Icone.key}
@@ -32,7 +32,12 @@ const Desktop = props => {
   ));
 
   const Windows = activePrograms.map(window => (
-    <Window key={window.key} programName={window.content} imgSrc={window.src} />
+    <Window
+      key={window.key}
+      programName={window.content}
+      imgSrc={window.src}
+      closeProgramFn={() => closeProgramFn(window.key)}
+    />
   ));
 
   return (
@@ -61,6 +66,7 @@ Desktop.propTypes = {
   ),
   clickFn: PropTypes.func.isRequired,
   openProgramFn: PropTypes.func.isRequired,
+  closeProgramFn: PropTypes.func.isRequired,
 };
 
 Desktop.defaultProps = {
