@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Wallpaper from '../../assets/img/wallpaper.jpg';
 import Icon from './Icon';
+import Window from '../Window/Window';
 
 const StyledDesktop = styled.main`
   height: 100vh;
@@ -19,7 +20,7 @@ const StyledSelect = styled.div`
 `;
 
 const Desktop = props => {
-  const { data, clickFn, openProgramFn } = props;
+  const { data, clickFn, openProgramFn, activePrograms } = props;
   const Icons = data.map(Icone => (
     <Icon
       key={Icone.key}
@@ -30,9 +31,16 @@ const Desktop = props => {
     />
   ));
 
+  const Windows = activePrograms.map(window => (
+    <Window key={window.key} programName={window.content} imgSrc={window.src} />
+  ));
+
   return (
     <>
-      <StyledDesktop onClick={clickFn}>{Icons}</StyledDesktop>
+      <StyledDesktop onClick={clickFn}>
+        {Windows}
+        {Icons}
+      </StyledDesktop>
       <StyledSelect />
     </>
   );
@@ -45,12 +53,19 @@ Desktop.propTypes = {
       content: PropTypes.string.isRequired,
     }),
   ),
+  activePrograms: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.number.isRequired,
+      content: PropTypes.string.isRequired,
+    }),
+  ),
   clickFn: PropTypes.func.isRequired,
   openProgramFn: PropTypes.func.isRequired,
 };
 
 Desktop.defaultProps = {
   data: '',
+  activePrograms: '',
 };
 
 export default Desktop;

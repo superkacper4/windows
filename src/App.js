@@ -106,7 +106,12 @@ class App extends React.Component {
           <GlobalStyle />
           <MenuBar data={activePrograms} />
           <GlobalStyle />
-          <Desktop clickFn={this.closeBarFn} data={Data} openProgramFn={this.openProgram} />
+          <Desktop
+            clickFn={this.closeBarFn}
+            data={Data}
+            openProgramFn={this.openProgram}
+            activePrograms={activePrograms}
+          />
         </div>
       </AppContext.Provider>
     );
