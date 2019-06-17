@@ -19,6 +19,7 @@ class App extends React.Component {
         content: 'Komputer',
         src: pc,
         active: 1,
+        functions: ['File', 'Edit', 'View'],
         initialPos: {
           x: 0,
           y: 0,
@@ -29,6 +30,7 @@ class App extends React.Component {
         content: 'Kosz',
         src: bin,
         active: 1,
+        functions: ['File', 'Edit', 'View'],
         initialPos: {
           x: 0,
           y: 65,
@@ -39,6 +41,7 @@ class App extends React.Component {
         content: 'Paint',
         src: paint,
         active: 1,
+        functions: ['File', 'About'],
         initialPos: {
           x: 0,
           y: 130,
@@ -49,12 +52,62 @@ class App extends React.Component {
         content: 'Internet Explorer',
         src: IE,
         active: 1,
+        functions: null,
         initialPos: {
           x: 0,
           y: 185,
         },
       },
     ],
+    // programs: [
+    //   {
+    //     key: 0,
+    //     functions: [
+    //       'File',
+    //       'Edit',
+    //       'View'
+    //     ],
+    //     src: null,
+    //     programs: [
+    //       {
+    //         key:0,
+    //         content: 'Storage(A:)',
+    //         src: null,
+    //         active: 1,
+    //       },
+    //       {
+    //         key:1,
+    //         content: 'System(C:)',
+    //         src: null,
+    //         active: 1,
+    //       }
+    //     ]
+    //   },
+    //   {
+    //     key: 1,
+    //     functions: [
+    //       'File',
+    //       'Edit',
+    //       'View'
+    //     ],
+    //     src: null,
+    //     programs: [
+    //       {
+    //         key: 0,
+    //         content: 'trash.jpg'
+    //       }
+    //     ]
+    //   },
+    //   {
+    //     key: 2,
+    //     functions: [
+    //       'File',
+    //       'About',
+    //     ],
+    //     src: null,
+    //     programs: null,
+    //   }
+    // ],
     activePrograms: [],
   };
 
@@ -97,6 +150,7 @@ class App extends React.Component {
 
   openProgram = id => {
     const { Data, activePrograms } = this.state;
+    const DataArray = [...Data];
 
     this.deactivateMenuBarIcon();
 
@@ -105,6 +159,11 @@ class App extends React.Component {
         activePrograms: [...prevState.activePrograms, Data[id]],
       }));
     }
+    DataArray[id].active = 1;
+
+    this.setState({
+      Data: DataArray,
+    });
   };
 
   closeProgram = key => {
@@ -131,7 +190,7 @@ class App extends React.Component {
       >
         <div className="App">
           <GlobalStyle />
-          <MenuBar data={activePrograms} />
+          <MenuBar data={activePrograms} openProgramFn={this.openProgram} />
           <GlobalStyle />
           <Desktop
             clickFn={this.closeBarFn}
