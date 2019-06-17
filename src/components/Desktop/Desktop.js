@@ -26,28 +26,14 @@ const Desktop = props => {
       top={Icone.key}
       src={Icone.src}
       content={Icone.content}
-      onClick={() => openProgramFn(Icone.key)}
+      initialPos={Icone.initialPos}
+      openProgram={() => openProgramFn(Icone.key)}
     />
   ));
 
   return (
     <>
-      <StyledDesktop onClick={clickFn}>
-        {Icons}
-
-        <button onClick={() => openProgramFn(data[0].key)} type="submit">
-          123
-        </button>
-        <button onClick={() => openProgramFn(data[1].key)} type="submit">
-          123
-        </button>
-        <button onClick={() => openProgramFn(data[2].key)} type="submit">
-          123
-        </button>
-        <button onClick={() => openProgramFn(data[3].key)} type="submit">
-          123
-        </button>
-      </StyledDesktop>
+      <StyledDesktop onClick={clickFn}>{Icons}</StyledDesktop>
       <StyledSelect />
     </>
   );

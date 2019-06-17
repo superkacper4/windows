@@ -19,24 +19,40 @@ class App extends React.Component {
         content: 'Komputer',
         src: pc,
         active: 1,
+        initialPos: {
+          x: 0,
+          y: 0,
+        },
       },
       {
         key: 1,
         content: 'Kosz',
         src: bin,
         active: 1,
+        initialPos: {
+          x: 0,
+          y: 65,
+        },
       },
       {
         key: 2,
         content: 'Paint',
         src: paint,
         active: 1,
+        initialPos: {
+          x: 0,
+          y: 130,
+        },
       },
       {
         key: 3,
         content: 'Internet Explorer',
         src: IE,
         active: 1,
+        initialPos: {
+          x: 0,
+          y: 185,
+        },
       },
     ],
     activePrograms: [],
@@ -91,6 +107,17 @@ class App extends React.Component {
     }
   };
 
+  closeProgram = key => {
+    const { activePrograms } = this.state;
+    const activeProgramsArray = [...activePrograms];
+    const index = activeProgramsArray.findIndex(program => program.key === key);
+    activeProgramsArray.splice(index, 1);
+
+    this.setState({
+      activePrograms: activeProgramsArray,
+    });
+  };
+
   render() {
     const { activePrograms, Data } = this.state;
     return (
@@ -106,7 +133,13 @@ class App extends React.Component {
           <GlobalStyle />
           <MenuBar data={activePrograms} />
           <GlobalStyle />
-          <Desktop clickFn={this.closeBarFn} data={Data} openProgramFn={this.openProgram} />
+          <Desktop
+            clickFn={this.closeBarFn}
+            data={Data}
+            openProgramFn={this.openProgram}
+            closeProgramFn={this.closeProgram}
+            activePrograms={activePrograms}
+          />
         </div>
       </AppContext.Provider>
     );
