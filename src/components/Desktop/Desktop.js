@@ -26,7 +26,8 @@ const Desktop = props => {
       top={Icone.key}
       src={Icone.src}
       content={Icone.content}
-      onClick={() => openProgramFn(Icone.key)}
+      initialPos={Icone.initialPos}
+      openProgram={() => openProgramFn(Icone.key)}
     />
   ));
 

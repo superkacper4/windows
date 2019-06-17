@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 /* zrobić mousedown na elementach żeby przenosić */
+
 const StyledIcon = styled.button`
     height: 60px
     width: 72px
@@ -11,19 +12,18 @@ const StyledIcon = styled.button`
     align-items: center
     background-color: transparent;
     border: none;
+    size: 5rem;
     &:focus{
       outline: 0;
     }
     position: absolute;
-    left: ${({ statX, isClicked, isChanged }) => isClicked && isChanged && `${statX}px`};
-    top: ${({ statY }) => `${statY}px`};
-    ${({ active, mouseX, mouseY, move, posX, posY }) =>
-      active &&
-      `transform: translateX(${move ? mouseX - posX : 0}px) translateY(${
-        move ? mouseY - posY : 0
-      }px); cursor: grabbing;`}
-
 `;
+
+// left: ${props => props.left}
+// top: ${props => props.top}
+
+// left: ${({pos}) => `${pos.x}px`};
+// top: ${({pos}) => `${pos.y}px`}
 
 const StyledImg = styled.img`
   width: 32px;
@@ -33,9 +33,6 @@ const StyledImg = styled.img`
 
 const StyledTitle = styled.p`
   color: white;
-  ${({ active }) =>
-    active &&
-    `background-color: blue; border: 1px solid darkblue; box-shadow: 4px 2px 5px -1px rgba(0,0,0,0.75);`}
 `;
 
 const StyledBlocker = styled.span`
@@ -47,111 +44,94 @@ const StyledBlocker = styled.span`
 `;
 
 class Icon extends React.Component {
-  state = {
-    active: false,
-    mouseX: 0,
-    mouseY: 0,
-    posX: 0,
-    posY: 0,
-    statX: 0,
-    statY: 0,
-    isClicked: false,
-    move: false,
-    isChanged: false,
-  };
+  // state = {
+  //   get pos(){
+  //     const {initialPos} = this.props
+  //     return initialPos
+  //   },
+  //   dragging: false,
+  //   rel: null,
+  // }
 
   ref = React.createRef();
 
-  componentDidMount() {
-    const { top } = this.props;
-    this.setState({
-      statX: 0,
-      statY: top * 60 + 5,
-    });
+  constructor(props) {
+    super(props);
+    const { initialPos } = this.props;
+    this.state = { pos: initialPos, dragging: false, rel: null };
   }
 
-  handleMove = e => {
-    this.setState({
-      mouseX: e.clientX,
-      mouseY: e.clientY,
-      move: true,
-      isChanged: true,
-    });
-  };
-
-  handleDown = e => {
-    this.setState({
-      active: true,
-      posX: e.clientX,
-      posY: e.clientY,
-    });
-  };
-
-  handleUp = () => {
-    const { ref } = this;
-    const { mouseX, posX, mouseY, posY, isChanged } = this.state;
-
-    if (isChanged) {
-      this.setState({
-        statX: ref.current.offsetLeft + mouseX - posX,
-        statY: ref.current.offsetTop + mouseY - posY,
-      });
+  componentDidUpdate(props, state) {
+    const { dragging } = this.state;
+    if (dragging && !state.dragging) {
+      document.addEventListener('mousemove', this.onMouseMove);
+      document.addEventListener('mouseup', this.onMouseUp);
+    } else if (!dragging && state.dragging) {
+      document.removeEventListener('mousemove', this.onMouseMove);
+      document.removeEventListener('mouseup', this.onMouseUp);
     }
+  }
 
+  onMouseDown = e => {
+    const { ref } = this;
+    if (e.button !== 0) return;
+    const posX = ref.current.offsetLeft;
+    const posY = ref.current.offsetTop;
     this.setState({
-      active: false,
-      move: false,
-      isClicked: true,
+      dragging: true,
+      rel: {
+        x: e.pageX - posX,
+        y: e.pageY - posY,
+      },
     });
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  onMouseUp = e => {
+    this.setState({ dragging: false });
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  onMouseMove = e => {
+    const { dragging, rel } = this.state;
+    if (!dragging) return;
+    const pos = {
+      x: e.pageX - rel.x,
+      y: e.pageY - rel.y,
+    };
+    this.setState({
+      pos,
+    });
+    e.stopPropagation();
+    e.preventDefault();
   };
 
   render() {
-    const { src, content, top, onClick } = this.props;
-    const { handleDown, handleUp, handleMove, ref } = this;
-    const {
-      active,
-      mouseX,
-      mouseY,
-      posX,
-      posY,
-      move,
-      isClicked,
-      isChanged,
-      statX,
-      statY,
-    } = this.state;
+    const { onMouseDown, ref } = this;
+    const { pos } = this.state;
+    const { src, content, openProgram } = this.props;
     return (
       <StyledIcon
-        top={top}
-        active={active}
-        mouseX={mouseX}
-        mouseY={mouseY}
-        posX={posX}
-        posY={posY}
-        statX={statX}
-        statY={statY}
-        move={move}
-        isClicked={isClicked}
-        isChanged={isChanged}
-        onMouseDown={handleDown}
-        onMouseUp={handleUp}
-        onMouseMove={active ? handleMove : null}
+        style={{ left: `${pos.x}px`, top: `${pos.y}px` }}
+        onMouseDown={onMouseDown}
         ref={ref}
-        onDoubleClick={onClick}
+        onDoubleClick={openProgram}
       >
         <StyledBlocker />
         <StyledImg src={src} />
-        <StyledTitle active={active}>{content}</StyledTitle>
+        <StyledTitle>{content}</StyledTitle>
       </StyledIcon>
     );
   }
 }
 
 Icon.propTypes = {
-  top: PropTypes.number.isRequired,
+  initialPos: PropTypes.shape(PropTypes.number.isRequired).isRequired,
   src: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  openProgram: PropTypes.func.isRequired,
 };
 
 export default Icon;
