@@ -11,7 +11,8 @@ const StyledWindow = styled.div`
   border-top: 2px solid #dfdfdf;
   border-left: 2px solid #dfdfdf;
   position: absolute;
-  z-index: 2;
+  z-index: ${props => (props.active ? '3' : '2')};
+  /* z-index:3; */
   top: 30%;
   left: 30%;
 `;
@@ -66,10 +67,10 @@ const StyledContent = styled.div`
 `;
 
 const Window = props => {
-  const { programName, key, imgSrc, closeProgramFn } = props;
+  const { programName, key, imgSrc, closeProgramFn, active } = props;
   return (
     <>
-      <StyledWindow key={key}>
+      <StyledWindow key={key} active={active}>
         <StyledTitle>
           <StyledFlexBoxWrapper>
             <StyledImg src={imgSrc} />
@@ -91,6 +92,7 @@ Window.propTypes = {
   key: PropTypes.number.isRequired,
   programName: PropTypes.string,
   imgSrc: PropTypes.string,
+  active: PropTypes.number.isRequired,
   closeProgramFn: PropTypes.func.isRequired,
 };
 

@@ -50,7 +50,12 @@ const MenuBar = props => {
 
   const openPrograms = data.map(program => {
     return (
-      <MenuItem key={program.key} title={program.content} active={program.active}>
+      <MenuItem
+        key={program.key}
+        title={program.content}
+        active={program.active}
+        onClick={() => props.openProgramFn(program.key)}
+      >
         {program.content.length <= 8 ? program.content : `${program.content.substring(0, 8)}..`}
       </MenuItem>
     );
@@ -103,6 +108,7 @@ MenuBar.propTypes = {
       content: PropTypes.string.isRequired,
     }),
   ),
+  openProgramFn: PropTypes.func.isRequired,
 };
 
 MenuBar.defaultProps = {

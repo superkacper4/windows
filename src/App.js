@@ -81,6 +81,7 @@ class App extends React.Component {
 
   openProgram = id => {
     const { Data, activePrograms } = this.state;
+    const DataArray = [...Data];
 
     this.deactivateMenuBarIcon();
 
@@ -89,6 +90,11 @@ class App extends React.Component {
         activePrograms: [...prevState.activePrograms, Data[id]],
       }));
     }
+    DataArray[id].active = 1;
+
+    this.setState({
+      Data: DataArray,
+    });
   };
 
   closeProgram = key => {
@@ -115,7 +121,7 @@ class App extends React.Component {
       >
         <div className="App">
           <GlobalStyle />
-          <MenuBar data={activePrograms} />
+          <MenuBar data={activePrograms} openProgramFn={this.openProgram} />
           <GlobalStyle />
           <Desktop
             clickFn={this.closeBarFn}

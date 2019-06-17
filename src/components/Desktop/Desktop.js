@@ -36,6 +36,7 @@ const Desktop = props => {
       key={window.key}
       programName={window.content}
       imgSrc={window.src}
+      active={window.active}
       closeProgramFn={() => closeProgramFn(window.key)}
     />
   ));
