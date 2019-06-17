@@ -59,6 +59,16 @@ const StyledNavItem = styled.button`
   border-left: 2px solid #dfdfdf;
 `;
 
+const StyledFuncitonBar = styled.section`
+  height: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+`;
+// const StyledFunctionButton = styled.button`
+//     margin-right: 5px;
+// `
+
 const StyledContent = styled.div`
   font-size: 2rem;
   width: 100%;
@@ -67,10 +77,10 @@ const StyledContent = styled.div`
 `;
 
 const Window = props => {
-  const { programName, key, imgSrc, closeProgramFn, active } = props;
+  const { programName, id, imgSrc, closeProgramFn, active, functions } = props;
   return (
     <>
-      <StyledWindow key={key} active={active}>
+      <StyledWindow id={id} active={active}>
         <StyledTitle>
           <StyledFlexBoxWrapper>
             <StyledImg src={imgSrc} />
@@ -82,6 +92,7 @@ const Window = props => {
             <StyledNavItem onClick={closeProgramFn}>X</StyledNavItem>
           </StyledFlexBoxWrapper>
         </StyledTitle>
+        {functions ? <StyledFuncitonBar /> : null}
         <StyledContent>superkacper4</StyledContent>
       </StyledWindow>
     </>
@@ -94,6 +105,7 @@ Window.propTypes = {
   imgSrc: PropTypes.string,
   active: PropTypes.number.isRequired,
   closeProgramFn: PropTypes.func.isRequired,
+  functions: PropTypes.arrayOf.isRequired,
 };
 
 Window.defaultProps = {

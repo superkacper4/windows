@@ -115,14 +115,14 @@ class Icon extends React.Component {
   render() {
     const { onMouseDown, ref } = this;
     const { pos, dragging } = this.state;
-    const { src, content, openProgram } = this.props;
+    const { src, content, openProgramFn } = this.props;
     return (
       <StyledIcon
         style={{ left: `${pos.x}px`, top: `${pos.y}px` }}
         onMouseDown={onMouseDown}
         ref={ref}
         dragging={dragging}
-        onDoubleClick={openProgram}
+        onDoubleClick={openProgramFn}
       >
         <StyledBlocker />
         <StyledImg src={src} />
@@ -136,7 +136,7 @@ Icon.propTypes = {
   initialPos: PropTypes.shape(PropTypes.number.isRequired).isRequired,
   src: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  openProgram: PropTypes.func.isRequired,
+  openProgramFn: PropTypes.func.isRequired,
 };
 
 export default Icon;
