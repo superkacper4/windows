@@ -17,6 +17,7 @@ const StyledIcon = styled.button`
       outline: 0;
     }
     position: absolute;
+    ${({ dragging }) => dragging && `cursor:grabbing`}
 `;
 
 // left: ${props => props.left}
@@ -33,6 +34,9 @@ const StyledImg = styled.img`
 
 const StyledTitle = styled.p`
   color: white;
+  width: 100%;
+  ${({ dragging }) =>
+    dragging && `background-color: blue; box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.75);`}
 `;
 
 const StyledBlocker = styled.span`
@@ -110,18 +114,19 @@ class Icon extends React.Component {
 
   render() {
     const { onMouseDown, ref } = this;
-    const { pos } = this.state;
+    const { pos, dragging } = this.state;
     const { src, content, openProgram } = this.props;
     return (
       <StyledIcon
         style={{ left: `${pos.x}px`, top: `${pos.y}px` }}
         onMouseDown={onMouseDown}
         ref={ref}
+        dragging={dragging}
         onDoubleClick={openProgram}
       >
         <StyledBlocker />
         <StyledImg src={src} />
-        <StyledTitle>{content}</StyledTitle>
+        <StyledTitle dragging={dragging}>{content}</StyledTitle>
       </StyledIcon>
     );
   }
