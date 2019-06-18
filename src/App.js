@@ -52,7 +52,7 @@ class App extends React.Component {
         content: 'Internet Explorer',
         src: IE,
         active: 1,
-        functions: null,
+        functions: [],
         initialPos: {
           x: 0,
           y: 185,

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import FnOpenButton from './FunctionsBar/FnOpenButton';
 
 const StyledWindow = styled.div`
   height: 300px;
@@ -65,9 +66,6 @@ const StyledFuncitonBar = styled.section`
   display: flex;
   align-items: center;
 `;
-// const StyledFunctionButton = styled.button`
-//     margin-right: 5px;
-// `
 
 const StyledContent = styled.div`
   font-size: 2rem;
@@ -76,36 +74,87 @@ const StyledContent = styled.div`
   /* background-color: white; */
 `;
 
-const Window = props => {
-  const { programName, id, imgSrc, closeProgramFn, active, functions } = props;
-  return (
-    <>
-      <StyledWindow id={id} active={active}>
-        <StyledTitle>
-          <StyledFlexBoxWrapper>
-            <StyledImg src={imgSrc} />
-            <StyledH2>{programName}</StyledH2>
-          </StyledFlexBoxWrapper>
-          <StyledFlexBoxWrapper>
-            <StyledNavItem>_</StyledNavItem>
-            <StyledNavItem>O</StyledNavItem>
-            <StyledNavItem onClick={closeProgramFn}>X</StyledNavItem>
-          </StyledFlexBoxWrapper>
-        </StyledTitle>
-        {functions ? <StyledFuncitonBar /> : null}
-        <StyledContent>superkacper4</StyledContent>
-      </StyledWindow>
-    </>
-  );
-};
+class Window extends React.Component {
+  state = {
+    activeBars: [],
+  };
+
+  componentDidMount() {
+    const { programName } = this.props;
+    if (programName === 'Komputer' || programName === 'Kosz') {
+      this.setState({
+        activeBars: [false, false, false],
+      });
+    } else if (programName === 'Paint') {
+      this.setState({
+        activeBars: [false, false],
+      });
+    }
+  }
+
+  handleOpenedBtn = id => {
+    const { activeBars } = this.state;
+    const activeBarsCopy = activeBars;
+    const prevActive = activeBars[id];
+    for (let i = 0; i < activeBarsCopy.length; i += 1) {
+      activeBarsCopy[i] = false;
+    }
+    activeBarsCopy[id] = !prevActive;
+    this.setState({
+      activeBars: activeBarsCopy,
+    });
+  };
+
+  render() {
+    const { programName, id, imgSrc, closeProgramFn, active, functions } = this.props;
+    const { activeBars } = this.state;
+    const { handleOpenedBtn } = this;
+    const condition = functions === undefined || functions.length === 0;
+    const functionBarContent = condition
+      ? null
+      : functions.map((title, i) =>
+          title ? (
+            <FnOpenButton
+              id={i}
+              handleOpenedBtn={handleOpenedBtn}
+              active={activeBars[i]}
+              key={title}
+              title={title}
+            />
+          ) : (
+            ''
+          ),
+        );
+    return (
+      <>
+        <StyledWindow id={id} active={active}>
+          <StyledTitle>
+            <StyledFlexBoxWrapper>
+              <StyledImg src={imgSrc} />
+              <StyledH2>{programName}</StyledH2>
+            </StyledFlexBoxWrapper>
+            <StyledFlexBoxWrapper>
+              <StyledNavItem>_</StyledNavItem>
+              <StyledNavItem>O</StyledNavItem>
+              <StyledNavItem onClick={closeProgramFn}>X</StyledNavItem>
+            </StyledFlexBoxWrapper>
+          </StyledTitle>
+          {condition ? null : <StyledFuncitonBar>{functionBarContent}</StyledFuncitonBar>}
+
+          <StyledContent>superkacper4</StyledContent>
+        </StyledWindow>
+      </>
+    );
+  }
+}
 
 Window.propTypes = {
-  key: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
   programName: PropTypes.string,
   imgSrc: PropTypes.string,
   active: PropTypes.number.isRequired,
   closeProgramFn: PropTypes.func.isRequired,
-  functions: PropTypes.arrayOf.isRequired,
+  functions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
 Window.defaultProps = {
