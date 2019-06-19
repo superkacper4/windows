@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
 import FnOpenButton from './FunctionsBar/FnOpenButton';
+import Pathbar from './Pathbar/Pathbar';
 
 const StyledWindow = styled.div`
   height: 300px;
@@ -110,6 +112,7 @@ class Window extends React.Component {
     const { activeBars } = this.state;
     const { handleOpenedBtn } = this;
     const condition = functions === undefined || functions.length === 0;
+    const conditionBar = programName === 'Kosz' || programName === 'Komputer';
     const functionBarContent = condition
       ? null
       : functions.map((title, i) =>
@@ -140,7 +143,7 @@ class Window extends React.Component {
             </StyledFlexBoxWrapper>
           </StyledTitle>
           {condition ? null : <StyledFuncitonBar>{functionBarContent}</StyledFuncitonBar>}
-
+          {conditionBar ? <Pathbar /> : null}
           <StyledContent>superkacper4</StyledContent>
         </StyledWindow>
       </>
