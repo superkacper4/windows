@@ -3,9 +3,12 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import FnOpenButton from './FunctionsBar/FnOpenButton';
-import Pathbar from './Pathbar/Pathbar';
+import Pathbar from './Pathbar';
+import Content from './Programs/Content';
+import IE from './Programs/IE';
+import Paint from './Programs/Paint';
 
-const StyledWindow = styled.div`
+const StyledWindow = styled.article`
   height: 300px;
   width: 300px;
   background-color: #c0c0c0;
@@ -18,9 +21,12 @@ const StyledWindow = styled.div`
   /* z-index:3; */
   top: 30%;
   left: 30%;
+  display: flex;
+  flex-direction: column;
+  padding: 2px;
 `;
 
-const StyledTitle = styled.div`
+const StyledTitle = styled.section`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,7 +36,7 @@ const StyledTitle = styled.div`
   padding-left: 5px;
 `;
 
-const StyledFlexBoxWrapper = styled.div`
+const StyledFlexBoxWrapper = styled.section`
   display: flex;
 `;
 
@@ -69,18 +75,18 @@ const StyledFuncitonBar = styled.section`
   align-items: center;
 `;
 
-const StyledContent = styled.div`
+const StyledContent = styled.section`
   font-size: 2rem;
   width: 100%;
   height: 100%;
-  /* background-color: white; */
+  background-color: white;
 `;
 
 class Window extends React.Component {
   state = {
     activeBars: [],
     inputValue: '/',
-    path: '/',
+    path: '',
   };
 
   paths = ['/a', '/c', '/c/kosz', '/c/folder'];
@@ -96,6 +102,18 @@ class Window extends React.Component {
         activeBars: [false, false],
       });
     }
+    if (programName === 'Kosz') {
+      this.setState({
+        path: '/c/kosz',
+        inputValue: '/c/kosz',
+      });
+    }
+    if (programName === 'Komputer') {
+      this.setState({
+        path: '/',
+        inputValue: '/',
+      });
+    }
   }
 
   changePath = e => {
@@ -108,7 +126,7 @@ class Window extends React.Component {
     const { inputValue } = this.state;
     const { paths } = this;
     const actualValue = inputValue;
-    const index = paths.findIndex(correct => actualValue === correct);
+    const index = paths.findIndex(correct => actualValue.toLowerCase === correct);
     if (index !== -1) {
       this.setState({
         path: actualValue,
@@ -135,6 +153,9 @@ class Window extends React.Component {
     const { handleOpenedBtn, changePath } = this;
     const condition = functions === undefined || functions.length === 0;
     const conditionBar = programName === 'Kosz' || programName === 'Komputer';
+    const checkIE = programName === 'Internet Explorer' ? <IE /> : null;
+    const checkContent = path === '/c/kosz' || path === '/' ? <Content /> : null;
+    const checkPaint = programName === 'Paint' ? <Paint /> : null;
     const functionBarContent = condition
       ? null
       : functions.map((title, i) =>
@@ -173,7 +194,7 @@ class Window extends React.Component {
               changePath={changePath}
             />
           ) : null}
-          <StyledContent>superkacper4</StyledContent>
+          <StyledContent>{checkIE || checkContent || checkPaint}</StyledContent>
         </StyledWindow>
       </>
     );
