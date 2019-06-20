@@ -79,7 +79,11 @@ const StyledContent = styled.div`
 class Window extends React.Component {
   state = {
     activeBars: [],
+    inputValue: '/',
+    path: '/',
   };
+
+  paths = ['/a', '/c', '/c/kosz', '/c/folder'];
 
   componentDidMount() {
     const { programName } = this.props;
@@ -93,6 +97,24 @@ class Window extends React.Component {
       });
     }
   }
+
+  changePath = e => {
+    this.setState({
+      inputValue: e.target.value,
+    });
+  };
+
+  onSubmit = () => {
+    const { inputValue } = this.state;
+    const { paths } = this;
+    const actualValue = inputValue;
+    const index = paths.findIndex(correct => actualValue === correct);
+    if (index !== -1) {
+      this.setState({
+        path: actualValue,
+      });
+    }
+  };
 
   handleOpenedBtn = id => {
     const { activeBars } = this.state;
@@ -109,8 +131,8 @@ class Window extends React.Component {
 
   render() {
     const { programName, id, imgSrc, closeProgramFn, active, functions } = this.props;
-    const { activeBars } = this.state;
-    const { handleOpenedBtn } = this;
+    const { activeBars, path, inputValue } = this.state;
+    const { handleOpenedBtn, changePath } = this;
     const condition = functions === undefined || functions.length === 0;
     const conditionBar = programName === 'Kosz' || programName === 'Komputer';
     const functionBarContent = condition
@@ -143,7 +165,14 @@ class Window extends React.Component {
             </StyledFlexBoxWrapper>
           </StyledTitle>
           {condition ? null : <StyledFuncitonBar>{functionBarContent}</StyledFuncitonBar>}
-          {conditionBar ? <Pathbar /> : null}
+          {conditionBar ? (
+            <Pathbar
+              path={path}
+              inputValue={inputValue}
+              onSubmit={this.onSubmit}
+              changePath={changePath}
+            />
+          ) : null}
           <StyledContent>superkacper4</StyledContent>
         </StyledWindow>
       </>
