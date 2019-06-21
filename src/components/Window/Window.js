@@ -90,7 +90,7 @@ class Window extends React.Component {
     path: '',
   };
 
-  paths = ['/a', '/c', '/c/kosz', '/c/folder', '/'];
+  paths = ['/a', '/c', '/c/kosz', '/c/folder', '/', '/a/desktop'];
 
   componentDidMount() {
     const { programName } = this.props;

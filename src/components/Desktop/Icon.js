@@ -115,14 +115,14 @@ class Icon extends React.Component {
   render() {
     const { onMouseDown, ref } = this;
     const { pos, dragging } = this.state;
-    const { src, content, openProgramFn, desk, openPath } = this.props;
+    const { src, content, openProgramFn, desk, openPath, folder, id } = this.props;
     return (
       <StyledIcon
         style={{ left: `${pos.x}px`, top: `${pos.y}px` }}
         onMouseDown={desk ? onMouseDown : null}
         ref={desk ? ref : null}
         dragging={desk ? dragging : null}
-        onDoubleClick={desk ? openProgramFn : openPath}
+        onDoubleClick={desk || folder ? () => openProgramFn(id) : openPath}
       >
         <StyledBlocker />
         <StyledImg src={src} />
@@ -141,11 +141,15 @@ Icon.propTypes = {
   openProgramFn: PropTypes.func,
   desk: PropTypes.bool.isRequired,
   openPath: PropTypes.func,
+  folder: PropTypes.bool,
+  id: PropTypes.number,
 };
 
 Icon.defaultProps = {
   openProgramFn: null,
   openPath: null,
+  folder: false,
+  id: null,
 };
 
 export default Icon;

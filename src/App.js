@@ -152,10 +152,9 @@ class App extends React.Component {
     });
   };
 
-  openProgram = id => {
+  openProgramFn = id => {
     const { Data, activePrograms } = this.state;
     const DataArray = [...Data];
-
     this.deactivateMenuBarIcon();
 
     if (activePrograms.includes(Data[id]) === false) {
@@ -190,16 +189,17 @@ class App extends React.Component {
           startBarFn: this.startBarFn,
           startBarFn2: this.startBarFn2,
           closeMoreFn: this.closeMoreFn,
+          openProgramFn: this.openProgramFn,
         }}
       >
         <div className="App">
           <GlobalStyle />
-          <MenuBar data={activePrograms} openProgramFn={this.openProgram} />
+          <MenuBar data={activePrograms} openProgramFn={this.openProgramFn} />
           <GlobalStyle />
           <Desktop
             clickFn={this.closeBarFn}
             data={Data}
-            openProgramFn={this.openProgram}
+            openProgramFn={this.openProgramFn}
             closeProgramFn={this.closeProgram}
             activePrograms={activePrograms}
           />

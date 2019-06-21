@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
+import StorageACon from './Contents/StorageA/StorageACon';
 import StartCon from './Contents/StartCon';
 import BinCon from './Contents/BinCon';
+import DesktopFCon from './Contents/DesktopFCon';
 
 const StyledContent = styled.section`
   font-size: 2rem;
@@ -20,6 +23,12 @@ const Content = ({ path, onSubmit }) => {
       break;
     case '/c/kosz':
       mainContent = <BinCon onSubmit={onSubmit} />;
+      break;
+    case '/a':
+      mainContent = <StorageACon onSubmit={onSubmit} />;
+      break;
+    case '/a/desktop':
+      mainContent = <DesktopFCon />;
       break;
     default:
       return '';
