@@ -1,0 +1,41 @@
+diff a/src/components/Window/Programs/Contents/StorageA/StorageACon.js b/src/components/Window/Programs/Contents/StorageA/StorageACon.js	(rejected hunks)
+@@ -1,2 +1,2 @@
+-import React from 'react'
+-import styled from 'styled-components'
++import React from 'react';
++import styled from 'styled-components';
+@@ -4,2 +4,2 @@ import PropTypes from 'prop-types';
+-import Icon from '../../../../Desktop/Icon'
+-import folder from '../../../../../assets/img/folder.png'
++import Icon from '../../../../Desktop/Icon';
++import folder from '../../../../../assets/img/folder.png';
+@@ -13,7 +13,13 @@ const StyledSection = styled.section`
+-const StorageACon = ({onSubmit}) => {
+-    return(
+-        <StyledSection>
+-          <Icon content='Desktop' initialPos={{x:0,y:5}} src={folder} desk={false} openPath={() => onSubmit('/a/desktop')} />
+-        </StyledSection>
+-    )
+-}
++const StorageACon = ({ onSubmit }) => {
++  return (
++    <StyledSection>
++      <Icon
++        content="Desktop"
++        initialPos={{ x: 0, y: 5 }}
++        src={folder}
++        desk={false}
++        openPath={() => onSubmit('/a/desktop')}
++      />
++    </StyledSection>
++  );
++};
+@@ -22,2 +28,2 @@ StorageACon.propTypes = {
+-  onSubmit: PropTypes.func.isRequired
+-}
++  onSubmit: PropTypes.func.isRequired,
++};
+@@ -25 +31 @@ StorageACon.propTypes = {
+-export default StorageACon
+\ No newline at end of file
++export default StorageACon;

@@ -10,6 +10,7 @@ import AppContext from '../../../../context';
 const DesktopFCon = () => {
   const context = useContext(AppContext);
   const data = [...context.state.Data];
+  data.splice(0, 2);
   const Icons = data.map((Icone, i) => (
     <Icon
       content={Icone.content}

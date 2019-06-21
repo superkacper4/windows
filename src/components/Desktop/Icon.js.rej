@@ -1,0 +1,4 @@
+diff a/src/components/Desktop/Icon.js b/src/components/Desktop/Icon.js	(rejected hunks)
+@@ -118 +118 @@ class Icon extends React.Component {
+-    const { src, content, openProgramFn, desk, openPath,folder,id } = this.props;
++    const { src, content, openProgramFn, desk, openPath, folder, id } = this.props;

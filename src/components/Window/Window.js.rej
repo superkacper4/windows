@@ -1,0 +1,6 @@
+diff a/src/components/Window/Window.js b/src/components/Window/Window.js	(rejected hunks)
+@@ -93 +93 @@ class Window extends React.Component {
+-  paths = ['/a', '/c', '/c/kosz', '/c/folder', '/','/a/desktop'];
++  paths = ['/a', '/c', '/c/kosz', '/c/folder', '/', '/a/desktop'];
+@@ -127 +126,0 @@ class Window extends React.Component {
+-    

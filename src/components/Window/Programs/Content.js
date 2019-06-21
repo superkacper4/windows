@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import StorageACon from './Contents/StorageA/StorageACon';
+import StorageACon from './Contents/StorageACon';
 import StartCon from './Contents/StartCon';
 import BinCon from './Contents/BinCon';
 import DesktopFCon from './Contents/DesktopFCon';
