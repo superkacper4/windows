@@ -17,6 +17,7 @@ class App extends React.Component {
       {
         key: 0,
         content: 'Komputer',
+        desk: true,
         src: pc,
         active: 1,
         functions: ['File', 'Edit', 'View'],
@@ -28,6 +29,7 @@ class App extends React.Component {
       {
         key: 1,
         content: 'Kosz',
+        desk: true,
         src: bin,
         active: 1,
         functions: ['File', 'Edit', 'View'],
@@ -39,6 +41,7 @@ class App extends React.Component {
       {
         key: 2,
         content: 'Paint',
+        desk: true,
         src: paint,
         active: 1,
         functions: ['File', 'About'],
@@ -50,6 +53,7 @@ class App extends React.Component {
       {
         key: 3,
         content: 'Internet Explorer',
+        desk: true,
         src: IE,
         active: 1,
         functions: [],

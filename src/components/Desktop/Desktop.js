@@ -25,6 +25,7 @@ const Desktop = props => {
     <Icon
       key={Icone.key}
       top={Icone.key}
+      desk={Icone.desk}
       src={Icone.src}
       initialPos={Icone.initialPos}
       content={Icone.content}

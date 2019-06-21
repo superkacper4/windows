@@ -78,8 +78,9 @@ const StyledFuncitonBar = styled.section`
 const StyledContent = styled.section`
   font-size: 2rem;
   width: 100%;
-  height: 100%;
+  flex-grow: 1;
   background-color: white;
+  position: relative;
 `;
 
 class Window extends React.Component {
@@ -89,7 +90,7 @@ class Window extends React.Component {
     path: '',
   };
 
-  paths = ['/a', '/c', '/c/kosz', '/c/folder'];
+  paths = ['/a', '/c', '/c/kosz', '/c/folder', '/'];
 
   componentDidMount() {
     const { programName } = this.props;
@@ -122,14 +123,20 @@ class Window extends React.Component {
     });
   };
 
-  onSubmit = () => {
-    const { inputValue } = this.state;
+  onSubmit = pathIcon => {
+    const { inputValue, path } = this.state;
     const { paths } = this;
-    const actualValue = inputValue;
-    const index = paths.findIndex(correct => actualValue.toLowerCase === correct);
+    let actualValue;
+    if (path === inputValue) {
+      actualValue = pathIcon;
+    } else {
+      actualValue = inputValue;
+    }
+    const index = paths.findIndex(correct => actualValue === correct);
     if (index !== -1) {
       this.setState({
         path: actualValue,
+        inputValue: actualValue,
       });
     }
   };
@@ -150,11 +157,14 @@ class Window extends React.Component {
   render() {
     const { programName, id, imgSrc, closeProgramFn, active, functions } = this.props;
     const { activeBars, path, inputValue } = this.state;
-    const { handleOpenedBtn, changePath } = this;
+    const { handleOpenedBtn, changePath, paths, onSubmit } = this;
+
+    /* conditions */
     const condition = functions === undefined || functions.length === 0;
     const conditionBar = programName === 'Kosz' || programName === 'Komputer';
+    const findIndex = paths.findIndex(pathe => pathe === path);
     const checkIE = programName === 'Internet Explorer' ? <IE /> : null;
-    const checkContent = path === '/c/kosz' || path === '/' ? <Content /> : null;
+    const checkContent = findIndex !== -1 ? <Content onSubmit={onSubmit} path={path} /> : null;
     const checkPaint = programName === 'Paint' ? <Paint /> : null;
     const functionBarContent = condition
       ? null
@@ -171,6 +181,7 @@ class Window extends React.Component {
             ''
           ),
         );
+
     return (
       <>
         <StyledWindow id={id} active={active}>
@@ -190,7 +201,7 @@ class Window extends React.Component {
             <Pathbar
               path={path}
               inputValue={inputValue}
-              onSubmit={this.onSubmit}
+              onSubmit={onSubmit}
               changePath={changePath}
             />
           ) : null}

@@ -33,7 +33,7 @@ const StyledImg = styled.img`
 `;
 
 const StyledTitle = styled.p`
-  color: white;
+  ${({ desk }) => (desk ? 'color: white' : 'color: black')}
   width: 100%;
   ${({ dragging }) =>
     dragging && `background-color: blue; box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.75);`}
@@ -115,18 +115,20 @@ class Icon extends React.Component {
   render() {
     const { onMouseDown, ref } = this;
     const { pos, dragging } = this.state;
-    const { src, content, openProgramFn } = this.props;
+    const { src, content, openProgramFn, desk, openPath } = this.props;
     return (
       <StyledIcon
         style={{ left: `${pos.x}px`, top: `${pos.y}px` }}
-        onMouseDown={onMouseDown}
-        ref={ref}
-        dragging={dragging}
-        onDoubleClick={openProgramFn}
+        onMouseDown={desk ? onMouseDown : null}
+        ref={desk ? ref : null}
+        dragging={desk ? dragging : null}
+        onDoubleClick={desk ? openProgramFn : openPath}
       >
         <StyledBlocker />
         <StyledImg src={src} />
-        <StyledTitle dragging={dragging}>{content}</StyledTitle>
+        <StyledTitle desk={desk} dragging={dragging}>
+          {content}
+        </StyledTitle>
       </StyledIcon>
     );
   }
@@ -136,7 +138,14 @@ Icon.propTypes = {
   initialPos: PropTypes.shape(PropTypes.number.isRequired).isRequired,
   src: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  openProgramFn: PropTypes.func.isRequired,
+  openProgramFn: PropTypes.func,
+  desk: PropTypes.bool.isRequired,
+  openPath: PropTypes.func,
+};
+
+Icon.defaultProps = {
+  openProgramFn: null,
+  openPath: null,
 };
 
 export default Icon;
