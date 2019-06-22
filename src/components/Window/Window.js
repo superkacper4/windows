@@ -24,6 +24,7 @@ const StyledWindow = styled.article`
   display: flex;
   flex-direction: column;
   padding: 2px;
+  ${({ dragging }) => dragging && `cursor:grabbing`}
 `;
 
 const StyledTitle = styled.section`
@@ -84,13 +85,21 @@ const StyledContent = styled.section`
 `;
 
 class Window extends React.Component {
-  state = {
-    activeBars: [],
-    inputValue: '/',
-    path: '',
-  };
-
   paths = ['/a', '/c', '/c/kosz', '/c/folder', '/', '/a/desktop'];
+
+  ref = React.createRef();
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeBars: [],
+      inputValue: '/',
+      path: '',
+      pos: { x: Math.floor(Math.random() * 1000), y: Math.floor(Math.random() * 500) },
+      dragging: false,
+      rel: null,
+    };
+  }
 
   componentDidMount() {
     const { programName } = this.props;
@@ -116,6 +125,53 @@ class Window extends React.Component {
       });
     }
   }
+
+  componentDidUpdate(props, state) {
+    const { dragging } = this.state;
+    if (dragging && !state.dragging) {
+      document.addEventListener('mousemove', this.onMouseMove);
+      document.addEventListener('mouseup', this.onMouseUp);
+    } else if (!dragging && state.dragging) {
+      document.removeEventListener('mousemove', this.onMouseMove);
+      document.removeEventListener('mouseup', this.onMouseUp);
+    }
+  }
+
+  onMouseDown = e => {
+    const { ref } = this;
+    if (e.button !== 0) return;
+    const posX = ref.current.offsetLeft;
+    const posY = ref.current.offsetTop;
+    this.setState({
+      dragging: true,
+      rel: {
+        x: e.pageX - posX,
+        y: e.pageY - posY,
+      },
+    });
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  onMouseUp = e => {
+    this.setState({ dragging: false });
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  onMouseMove = e => {
+    const { dragging, rel } = this.state;
+    if (!dragging) return;
+    const pos = {
+      x: e.pageX - rel.x,
+      y: e.pageY - rel.y,
+    };
+    this.setState({
+      pos,
+    });
+    e.stopPropagation();
+    e.preventDefault();
+  };
 
   changePath = e => {
     this.setState({
@@ -156,8 +212,8 @@ class Window extends React.Component {
 
   render() {
     const { programName, id, imgSrc, closeProgramFn, active, functions } = this.props;
-    const { activeBars, path, inputValue } = this.state;
-    const { handleOpenedBtn, changePath, paths, onSubmit } = this;
+    const { activeBars, path, inputValue, dragging, pos } = this.state;
+    const { handleOpenedBtn, changePath, paths, onSubmit, ref, onMouseDown } = this;
 
     /* conditions */
     const condition = functions === undefined || functions.length === 0;
@@ -184,7 +240,14 @@ class Window extends React.Component {
 
     return (
       <>
-        <StyledWindow id={id} active={active}>
+        <StyledWindow
+          style={{ left: `${pos.x}px`, top: `${pos.y}px` }}
+          onMouseDown={onMouseDown}
+          ref={ref}
+          dragging={dragging}
+          id={id}
+          active={active}
+        >
           <StyledTitle>
             <StyledFlexBoxWrapper>
               <StyledImg src={imgSrc} />
