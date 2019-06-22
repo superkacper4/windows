@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import StorageACon from './Contents/StorageACon';
+import StorageCCon from './Contents/StorageCCon';
 import StartCon from './Contents/StartCon';
 import BinCon from './Contents/BinCon';
 import DesktopFCon from './Contents/DesktopFCon';
@@ -32,6 +33,10 @@ const Content = ({ path, onSubmit }) => {
     case '/a/desktop':
     case '/a/desktop/':
       mainContent = <DesktopFCon />;
+      break;
+    case '/c':
+    case '/c/':
+      mainContent = <StorageCCon />;
       break;
     default:
       return '';
