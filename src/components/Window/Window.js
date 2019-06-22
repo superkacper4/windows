@@ -85,7 +85,19 @@ const StyledContent = styled.section`
 `;
 
 class Window extends React.Component {
-  paths = ['/a', '/c', '/c/kosz', '/c/folder', '/', '/a/desktop'];
+  paths = [
+    '/a',
+    '/a/',
+    '/c',
+    '/c/',
+    '/c/kosz',
+    '/c/kosz/',
+    '/c/folder',
+    '/c/folder/',
+    '/',
+    '/a/desktop',
+    '/a/desktop/',
+  ];
 
   ref = React.createRef();
 
@@ -179,6 +191,12 @@ class Window extends React.Component {
     });
   };
 
+  keyDown = e => {
+    if (e.key === 'Enter') {
+      this.onSubmit();
+    }
+  };
+
   onSubmit = pathIcon => {
     const { inputValue, path } = this.state;
     const { paths } = this;
@@ -210,10 +228,38 @@ class Window extends React.Component {
     });
   };
 
+  handleBack = () => {
+    const { path } = this.state;
+    let pathC = path.split('');
+    if (path !== '/') {
+      const pathR = pathC.reverse();
+      const index = pathR.findIndex(id => id === '/');
+      if (pathR.length === 2) {
+        pathR.splice(0, index);
+      } else {
+        pathR.splice(0, index + 1);
+      }
+      pathC = pathR.reverse().join('');
+      this.setState({
+        path: pathC,
+        inputValue: pathC,
+      });
+    }
+  };
+
   render() {
     const { programName, id, imgSrc, closeProgramFn, active, functions } = this.props;
     const { activeBars, path, inputValue, dragging, pos } = this.state;
-    const { handleOpenedBtn, changePath, paths, onSubmit, ref, onMouseDown } = this;
+    const {
+      handleOpenedBtn,
+      changePath,
+      paths,
+      onSubmit,
+      ref,
+      onMouseDown,
+      keyDown,
+      handleBack,
+    } = this;
 
     /* conditions */
     const condition = functions === undefined || functions.length === 0;
@@ -266,6 +312,8 @@ class Window extends React.Component {
               inputValue={inputValue}
               onSubmit={onSubmit}
               changePath={changePath}
+              keyDown={keyDown}
+              back={handleBack}
             />
           ) : null}
           <StyledContent>{checkIE || checkContent || checkPaint}</StyledContent>

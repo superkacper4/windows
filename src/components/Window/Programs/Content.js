@@ -22,12 +22,15 @@ const Content = ({ path, onSubmit }) => {
       mainContent = <StartCon onSubmit={onSubmit} />;
       break;
     case '/c/kosz':
+    case '/c/kosz/':
       mainContent = <BinCon onSubmit={onSubmit} />;
       break;
     case '/a':
+    case '/a/':
       mainContent = <StorageACon onSubmit={onSubmit} />;
       break;
     case '/a/desktop':
+    case '/a/desktop/':
       mainContent = <DesktopFCon />;
       break;
     default:
