@@ -36,7 +36,7 @@ const Content = ({ path, onSubmit }) => {
       break;
     case '/c':
     case '/c/':
-      mainContent = <StorageCCon />;
+      mainContent = <StorageCCon onSubmit={onSubmit} />;
       break;
     default:
       return '';

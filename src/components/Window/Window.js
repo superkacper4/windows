@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import dysk from '../../assets/img/dysk.png';
+import folder from '../../assets/img/folder.png';
+
 import FnOpenButton from './FunctionsBar/FnOpenButton';
 import Pathbar from './Pathbar';
 import Content from './Programs/Content';
@@ -247,6 +250,50 @@ class Window extends React.Component {
     }
   };
 
+  createTitle = () => {
+    const { path } = this.state;
+    let pathC = path.split('');
+    if (path !== '/') {
+      const pathR = pathC.reverse();
+      const index = pathR.findIndex(id => id === '/');
+      pathR.splice(index, pathR.length - 1);
+      pathC = pathR.reverse().join('');
+    }
+    return pathC;
+  };
+
+  createImg = () => {
+    const { path } = this.state;
+    const { imgSrc } = this.props;
+    let src;
+    switch (path) {
+      case '/a':
+      case '/a/':
+      case '/c':
+      case '/c/':
+        src = dysk;
+        break;
+      case '/a/desktop':
+      case '/a/desktop/':
+        src = folder;
+        break;
+      case '/c/kosz':
+      case '/':
+        src = imgSrc;
+        break;
+      default:
+        src = null;
+    }
+    return src;
+  };
+
+  handleHome = () => {
+    this.setState({
+      path: '/',
+      inputValue: '/',
+    });
+  };
+
   render() {
     const { programName, id, imgSrc, closeProgramFn, active, functions } = this.props;
     const { activeBars, path, inputValue, dragging, pos } = this.state;
@@ -259,6 +306,8 @@ class Window extends React.Component {
       onMouseDown,
       keyDown,
       handleBack,
+      handleHome,
+      createImg,
     } = this;
 
     /* conditions */
@@ -296,8 +345,8 @@ class Window extends React.Component {
         >
           <StyledTitle>
             <StyledFlexBoxWrapper>
-              <StyledImg src={imgSrc} />
-              <StyledH2>{programName}</StyledH2>
+              <StyledImg src={path !== '' ? createImg() : imgSrc} />
+              <StyledH2>{conditionBar ? this.createTitle() : programName}</StyledH2>
             </StyledFlexBoxWrapper>
             <StyledFlexBoxWrapper>
               <StyledNavItem>_</StyledNavItem>
@@ -314,6 +363,7 @@ class Window extends React.Component {
               changePath={changePath}
               keyDown={keyDown}
               back={handleBack}
+              home={handleHome}
             />
           ) : null}
           <StyledContent>{checkIE || checkContent || checkPaint}</StyledContent>

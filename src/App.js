@@ -63,55 +63,6 @@ class App extends React.Component {
         },
       },
     ],
-    // programs: [
-    //   {
-    //     key: 0,
-    //     functions: [
-    //       'File',
-    //       'Edit',
-    //       'View'
-    //     ],
-    //     src: null,
-    //     programs: [
-    //       {
-    //         key:0,
-    //         content: 'Storage(A:)',
-    //         src: null,
-    //         active: 1,
-    //       },
-    //       {
-    //         key:1,
-    //         content: 'System(C:)',
-    //         src: null,
-    //         active: 1,
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     key: 1,
-    //     functions: [
-    //       'File',
-    //       'Edit',
-    //       'View'
-    //     ],
-    //     src: null,
-    //     programs: [
-    //       {
-    //         key: 0,
-    //         content: 'trash.jpg'
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     key: 2,
-    //     functions: [
-    //       'File',
-    //       'About',
-    //     ],
-    //     src: null,
-    //     programs: null,
-    //   }
-    // ],
     activePrograms: [],
   };
 

@@ -29,11 +29,11 @@ const StyledInput = styled.input`
   height: 100%;
 `;
 
-const Pathbar = ({ inputValue, changePath, onSubmit, keyDown, back }) => {
+const Pathbar = ({ inputValue, changePath, onSubmit, keyDown, back, home }) => {
   return (
     <StyledBar>
       <StyledButtonSmall onClick={back} />
-      <StyledButtonBig />
+      <StyledButtonBig onClick={home} />
       <StyledInput
         value={inputValue}
         onKeyDown={keyDown}
@@ -51,6 +51,7 @@ Pathbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   keyDown: PropTypes.func.isRequired,
   back: PropTypes.func.isRequired,
+  home: PropTypes.func.isRequired,
 };
 
 export default Pathbar;
